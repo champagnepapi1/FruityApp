@@ -28,26 +28,31 @@ export const getFavoriteList = createSelector(
 );
 
 // État initial
-const initialState = {
+const fruitsInitialState = {
   fruitsList: [],
   loading: false,
-  favoriteList: [] // Cette clé est définie dans l'état initial global
+};
+
+const favoriteInitialState = {
+  favoriteList: [],
 };
 
 // Reducer pour la liste de fruits
-const fruitsReducer = (state = initialState, action) => {
+const fruitsReducer = (state = fruitsInitialState, action) => {
   switch (action.type) {
     case FETCH_FRUITS:
       return { ...state, loading: true };
     case FETCH_FRUITS_SUCCESS:
-      return { ...state, fruitsList: action.payload, loading: false };
+      const newFruitsList = action.payload.map((fruit) => ({
+        ...fruit, // Spread the properties of each fruit to create a new object
+      }));
+      return { ...state, fruitsList: newFruitsList, loading: false };
     default:
       return state;
   }
 };
 
-// Reducer pour la liste de favoris
-const favoriteReducer = (state = initialState, action) => {
+const favoriteReducer = (state = favoriteInitialState, action) => {
   switch (action.type) {
     case ADD_TO_FAVORITES:
       return { ...state, favoriteList: [...state.favoriteList, action.payload] };
