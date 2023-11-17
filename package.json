@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.11",
+    "@reduxjs/toolkit": "^1.9.7",
+    "native-base": "^3.4.28",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-svg": "^12.1.1",
+    "react-redux": "^8.1.3"
+  }
+}
