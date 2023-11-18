@@ -10,17 +10,17 @@ You can also filter by typing their name in the search bar.
 
 Copy the repository from this page
 
-Go inside the /FruityApp folder
+Go inside the **/FruityApp** folder
 
-Type npm install to install all the dependencies
+Type **npm install** to install all the dependencies
 
-Type npm start to build the project
+Type **npm start** to build the project
 
-Take your mobile phone and install Expo Go from the app store 
+Take your mobile phone and install **Expo Go** from the app store 
 
 Open the app and scan the QR code
 
-Enjoy!
+**Enjoy!**
 
 ### In case of issues
 
