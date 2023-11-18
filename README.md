@@ -8,12 +8,19 @@ Copy the repository from this page
 
 Go inside the /FruityApp folder
 
-Type npm install
+Type npm install to install all the dependencies
 
-Type npm start 
+Type npm start to build the project
 
-Take your mobile phone and install expo go from the app store 
+Take your mobile phone and install Expo Go from the app store 
 
-Open the app an scan the QR code
+Open the app and scan the QR code
 
-Enjoy !
+Enjoy!
+
+### In case of issues
+
+Make sure you have node.js and react-native installed
+
+Make sure to type npm install or npm i before building
+
