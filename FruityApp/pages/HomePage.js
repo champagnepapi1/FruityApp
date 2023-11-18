@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, TextInput} from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { FETCH_FRUITS, FETCH_FRUITS_SUCCESS, REMOVE_FROM_FAVORITES, ADD_TO_FAVORITES, getFavoriteList, getFruitsList, getLoadingState } from '../utils/store';
 import { homePageStyle } from '../styles/HomePageStyle';
 import blackStar from "../assets/blackStar.png";
 import yellowStar from "../assets/star.png";
+import { tabBarStyle } from '../styles/TabBarStyle';
 
 const fetchFruits = () => ({
     type: FETCH_FRUITS,
@@ -76,6 +77,14 @@ export default function HomePage() {
         });
         setClickedItems(initialClickedItems);
     }, [fruitsList, favoriteList]);
+
+    const goToHome = () => {
+        navigation.navigate('HomePage');
+    };
+
+    const goFavorite = () => {
+        navigation.navigate('FavoritePage');
+    };
 
     const goToDetail = (fruit) => {
         // Redirection vers la page de détail du fruit
@@ -167,6 +176,8 @@ export default function HomePage() {
                     onChangeText={handleSearch}
                     value={searchQuery}
                     placeholder="Search by name..."
+                    placeholderTextColor="white"
+                    
                 />
             </View>
 
@@ -186,6 +197,22 @@ export default function HomePage() {
                     }}
                 />
             )}
+            {/* <View style={tabBarStyle.tabContainer}>
+                <View style={tabBarStyle.tab}>
+                    <View>
+                        <TouchableOpacity onPress={goToHome} style={tabBarStyle.homeButtonContainer}>
+                            <Image source={require("../assets/homepage.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
+                            <Text style={tabBarStyle.labelHome}>Home</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={goFavorite} style={tabBarStyle.favoriteButtonContainer}>
+                            <Image source={require("../assets/star.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
+                            <Text style={tabBarStyle.labelFavorite}>Favorite</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View> */}
         </View>
     );
 }

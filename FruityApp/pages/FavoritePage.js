@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { homePageStyle } from "../styles/HomePageStyle";
 import blackStar from "../assets/blackStar.png";
 import yellowStar from "../assets/star.png";
+import { tabBarStyle } from "../styles/TabBarStyle";
 
 export default function FavoritePage() {
     const dispatch = useDispatch();
@@ -21,6 +22,14 @@ export default function FavoritePage() {
     const goToDetail = (fruit) => {
         navigation.navigate("FruitInfoPage", fruit);
     }
+
+    const goToHome = () => {
+        navigation.navigate('HomePage');
+    };
+
+    const goFavorite = () => {
+        navigation.navigate('FavoritePage');
+    };
 
     const changeImage = (fruitId) => {
         setClickedItems((prevState) => ({
@@ -98,6 +107,22 @@ export default function FavoritePage() {
                     }
                 }}
             />
+            {/* <View style={tabBarStyle.tabContainer}>
+                <View style={tabBarStyle.tab}>
+                    <View>
+                        <TouchableOpacity onPress={goToHome} style={tabBarStyle.homeButtonContainer}>
+                            <Image source={require("../assets/homepage.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
+                            <Text style={tabBarStyle.labelHome}>Home</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={goFavorite} style={tabBarStyle.favoriteButtonContainer}>
+                            <Image source={require("../assets/star.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
+                            <Text style={tabBarStyle.labelFavorite}>Favorite</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View> */}
         </View>
     );
 }
