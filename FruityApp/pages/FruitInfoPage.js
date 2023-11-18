@@ -39,6 +39,7 @@ export default function FruitInfoPage() {
         navigation.goBack(); // Function to navigate back
     };
 
+    // Check if the fruit is already in favorites to determine the star icon
     const isAlreadyInFavorites = favoriteList.some(favorite => favorite.id === fruitInfo.id);
     const starImage = isAlreadyInFavorites ? require('../assets/star.png') : require('../assets/blackStar.png');
 

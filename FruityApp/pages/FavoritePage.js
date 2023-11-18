@@ -15,22 +15,17 @@ export default function FavoritePage() {
     const [sortedFavoriteList, setSortedFavoriteList] = useState([]);
     const [clickedItems, setClickedItems] = useState({});
 
+    // Update the sorted list of favorite fruits when the favoriteList changes
     useEffect(() => {
         setSortedFavoriteList([...favoriteList].sort((a, b) => a.name.localeCompare(b.name)));
     }, [favoriteList]);
 
+    // Navigate to the fruit details page
     const goToDetail = (fruit) => {
         navigation.navigate("FruitInfoPage", fruit);
     }
 
-    const goToHome = () => {
-        navigation.navigate('HomePage');
-    };
-
-    const goFavorite = () => {
-        navigation.navigate('FavoritePage');
-    };
-
+    // Change the favorite icon and toggle the favorite status of the fruit
     const changeImage = (fruitId) => {
         setClickedItems((prevState) => ({
             ...prevState,
@@ -39,6 +34,7 @@ export default function FavoritePage() {
         toggleFavorite(favoriteList.find(fruit => fruit.id === fruitId));
     };
 
+    // Toggle the favorite status of the fruit in the Redux store
     const toggleFavorite = (fruit) => {
         const isAlreadyInFavorites = favoriteList.some(favorite => favorite.id === fruit.id);
 
@@ -63,6 +59,7 @@ export default function FavoritePage() {
         }
     };
 
+    // Render each fruit item in the list
     const renderFruitItem = ({ item }) => {
         if (!item || !item.name) {
             return (
@@ -71,10 +68,10 @@ export default function FavoritePage() {
                 </View>
             );
         }
-    
+
         const isFavorited = clickedItems[item.id] || favoriteList.some(favorite => favorite.id === item.id);
         const activeImage = isFavorited ? yellowStar : blackStar;
-    
+
         return (
             <View style={homePageStyle.item}>
                 <TouchableOpacity onPress={() => goToDetail(item)}>
@@ -94,6 +91,11 @@ export default function FavoritePage() {
 
     return (
         <View style={homePageStyle.container}>
+            {/* Page title */}
+            <View style={homePageStyle.pageTitleContainer}>
+                <Text style={homePageStyle.pageTitle}>Favorite</Text>
+            </View>
+            {/* List of favorite fruits */}
             <FlatList
                 data={sortedFavoriteList}
                 renderItem={renderFruitItem}
@@ -107,22 +109,6 @@ export default function FavoritePage() {
                     }
                 }}
             />
-            {/* <View style={tabBarStyle.tabContainer}>
-                <View style={tabBarStyle.tab}>
-                    <View>
-                        <TouchableOpacity onPress={goToHome} style={tabBarStyle.homeButtonContainer}>
-                            <Image source={require("../assets/homepage.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
-                            <Text style={tabBarStyle.labelHome}>Home</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity onPress={goFavorite} style={tabBarStyle.favoriteButtonContainer}>
-                            <Image source={require("../assets/star.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
-                            <Text style={tabBarStyle.labelFavorite}>Favorite</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View> */}
         </View>
     );
 }

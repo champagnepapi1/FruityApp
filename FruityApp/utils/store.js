@@ -1,12 +1,12 @@
 import { configureStore, createSelector } from '@reduxjs/toolkit';
 
-// Actions types
+// Action types
 export const FETCH_FRUITS = 'FETCH_FRUITS';
 export const FETCH_FRUITS_SUCCESS = 'FETCH_FRUITS_SUCCESS';
 export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
 export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
 
-// Sélecteurs pour les fruits
+// Selectors for fruits
 const fruitsSelector = (state) => state.fruits;
 
 export const getFruitsList = createSelector(
@@ -19,7 +19,7 @@ export const getLoadingState = createSelector(
   (fruits) => fruits.loading
 );
 
-// Sélecteurs pour les favoris
+// Selectors for favorites
 const favoriteSelector = (state) => state.favorite;
 
 export const getFavoriteList = createSelector(
@@ -27,7 +27,7 @@ export const getFavoriteList = createSelector(
   (favorite) => favorite.favoriteList
 );
 
-// État initial
+// Initial state
 const fruitsInitialState = {
   fruitsList: [],
   loading: false,
@@ -37,7 +37,7 @@ const favoriteInitialState = {
   favoriteList: [],
 };
 
-// Reducer pour la liste de fruits
+// Reducer for the fruits list
 const fruitsReducer = (state = fruitsInitialState, action) => {
   switch (action.type) {
     case FETCH_FRUITS:
@@ -64,7 +64,7 @@ const favoriteReducer = (state = favoriteInitialState, action) => {
   }
 };
 
-// Configuration du store
+// Store configuration
 const store = configureStore({
   reducer: {
     fruits: fruitsReducer,

@@ -6,6 +6,15 @@ export const homePageStyle = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
     width: "100%"
   },
+  pageTitleContainer: {
+    marginTop: StatusBar.currentHeight || 0,
+    marginBottom: StatusBar.currentHeight || 0,
+    marginLeft: 32,
+    alignItems: "center"
+  },
+  pageTitle : {
+    fontSize: 32
+  },
   item: {
     padding: 20,
     marginVertical: 8,
@@ -13,8 +22,7 @@ export const homePageStyle = StyleSheet.create({
     alignItems: "left",
     backgroundColor: "#E0004D",
     borderRadius: 20,
-    elevation: 20,
-    borderWidth: 1,
+    elevation: 10
   },
   itemView: {
     flexDirection: 'row', 
@@ -33,18 +41,16 @@ export const homePageStyle = StyleSheet.create({
   searchInputContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: StatusBar.currentHeight || 0,
     paddingBottom: StatusBar.currentHeight || 0,
-    backgroundColor: "#E4E0E1"
   },
   searchInput: {
     width: "90%",
     height: 50,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 50,
     paddingHorizontal: 10,
-    backgroundColor: "#E0004D",
-    color: "white",
+    backgroundColor: "white",
+    color: "black",
     paddingLeft: 15
   }
 });

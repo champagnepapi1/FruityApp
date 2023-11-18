@@ -17,19 +17,23 @@ export default function App() {
   const navigationRef = React.useRef(null);
   const [activePage, setActivePage] = React.useState('HomePage');
 
+  // Function to navigate to the Home page
   const goToHome = () => {
     navigationRef.current?.navigate('HomePage');
     setActivePage('HomePage');
   };
 
+  // Function to navigate to the Favorite page
   const goFavorite = () => {
     navigationRef.current?.navigate('FavoritePage');
     setActivePage('FavoritePage');
   };
 
   return (
+    // Redux store provider
     <Provider store={store}>
       <NavigationContainer ref={navigationRef}>
+        {/* Stack navigator for different pages */}
         <Stack.Navigator initialRouteName="HomePage">
           <Stack.Screen
             name="HomePage"
@@ -48,18 +52,21 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      {/* Bottom tab navigation */}
       <View style={tabBarStyle.tabContainer}>
         <View style={tabBarStyle.tab}>
+          {/* Home button */}
           <View>
             <TouchableOpacity onPress={goToHome} style={tabBarStyle.homeButtonContainer}>
-              <Image source={require("./assets/homepage.png")} style={{ width: 24, height: 24, tintColor: activePage === 'HomePage' ? 'black' : 'white' }} />
-              <Text style={{ ...tabBarStyle.labelHome, color: activePage === 'HomePage' ? 'black' : 'white' }}>Home</Text>
+              <Image source={require("./assets/homepage.png")} style={{ width: 24, height: 24, tintColor: activePage === 'HomePage' ? '#F4CD1E' : 'white' }} />
+              <Text style={{ ...tabBarStyle.labelHome, color: activePage === 'HomePage' ? '#F4CD1E' : 'white' }}>Home</Text>
             </TouchableOpacity>
           </View>
+          {/* Favorite button */}
           <View>
             <TouchableOpacity onPress={goFavorite} style={tabBarStyle.favoriteButtonContainer}>
-              <Image source={require("./assets/star.png")} style={{ width: 24, height: 24, tintColor: activePage === 'FavoritePage' ? 'black' : 'white' }} />
-              <Text style={{ ...tabBarStyle.labelFavorite, color: activePage === 'FavoritePage' ? 'black' : 'white' }}>Favorite</Text>
+              <Image source={require("./assets/star.png")} style={{ width: 24, height: 24, tintColor: activePage === 'FavoritePage' ? '#F4CD1E' : 'white' }} />
+              <Text style={{ ...tabBarStyle.labelFavorite, color: activePage === 'FavoritePage' ? '#F4CD1E' : 'white' }}>Favorite</Text>
             </TouchableOpacity>
           </View>
         </View>

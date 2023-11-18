@@ -169,6 +169,9 @@ export default function HomePage() {
     sortedFruits.sort(compareByName);
     return (
         <View style={homePageStyle.container}>
+            <View style={homePageStyle.pageTitleContainer}>
+                <Text style={homePageStyle.pageTitle}>Home</Text>
+            </View>
             <View style={homePageStyle.searchInputContainer}>
                 <TextInput
                     underlineColor='transparent'
@@ -176,7 +179,7 @@ export default function HomePage() {
                     onChangeText={handleSearch}
                     value={searchQuery}
                     placeholder="Search by name..."
-                    placeholderTextColor="white"
+                    placeholderTextColor="black"
                     
                 />
             </View>

@@ -13,8 +13,6 @@ export const fruitInfoPageStyle = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    // Add styling for your image container here
-    // Example: width, height, margin, etc.
     marginRight: 10,
   },
   imageStyle: {
