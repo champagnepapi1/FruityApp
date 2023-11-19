@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appbar, List, TextInput } from 'react-native-paper';
+import { Appbar, List, TextInput, ActivityIndicator } from 'react-native-paper';
 import { FETCH_FRUITS, FETCH_FRUITS_SUCCESS, REMOVE_FROM_FAVORITES, ADD_TO_FAVORITES, getFavoriteList, getFruitsList, getLoadingState } from '../utils/store';
 import { homePageStyle } from '../styles/HomePageStyle';
 import blackStar from "../assets/blackStar.png";
 import yellowStar from "../assets/star.png";
 
+// Action creators
 const fetchFruits = () => ({
     type: FETCH_FRUITS,
 });
@@ -33,15 +34,13 @@ export default function HomePage() {
     const [filteredFruits, setFilteredFruits] = useState([]);
     const sortedFruits = filteredFruits.length > 0 ? filteredFruits : fruitsList;
 
-
+    // Fetch fruits from API and handle data
     useEffect(() => {
         dispatch(fetchFruits());
 
-        // Récupération des fruits depuis l'API
         fetch("https://www.fruityvice.com/api/fruit/all")
             .then(response => response.json())
             .then(data => {
-                // Traitement des données pour les fruits
                 const mappedFruit = data.map((fruit) => ({
                     name: fruit.name || null,
                     id: fruit.id || null,
@@ -54,11 +53,11 @@ export default function HomePage() {
             })
             .catch(error => {
                 console.error("Error fetching data:", error);
-                // Gérer l'erreur de chargement des données ici
+                // Handle data fetching error here
             });
-        // Mise en place du titre de la page
     }, [dispatch, navigation]);
 
+    // Filter fruits based on search query
     useEffect(() => {
         if (fruitsList) {
             const filtered = fruitsList.filter((fruit) =>
@@ -68,8 +67,8 @@ export default function HomePage() {
         }
     }, [fruitsList, searchQuery]);
 
+    // Set initial favorite status of fruits
     useEffect(() => {
-        // Check if each fruit is in the favoriteList and set its state accordingly
         const initialClickedItems = {};
         fruitsList.forEach(fruit => {
             const isAlreadyInFavorites = favoriteList.some(favorite => favorite.id === fruit.id);
@@ -78,15 +77,17 @@ export default function HomePage() {
         setClickedItems(initialClickedItems);
     }, [fruitsList, favoriteList]);
 
+    // Navigate to fruit details page
     const goToDetail = (fruit) => {
-        // Redirection vers la page de détail du fruit
         navigation.navigate("FruitInfoPage", fruit);
     }
 
+    // Handle search input
     const handleSearch = (text) => {
         setSearchQuery(text);
     };
 
+    // Change favorite icon and toggle favorite status
     const changeImage = (fruitId) => {
         setClickedItems((prevState) => ({
             ...prevState,
@@ -94,60 +95,61 @@ export default function HomePage() {
         }));
     };
 
+    // Render each fruit item
     const renderFruitItem = ({ item }) => {
         const toggleFavorite = (fruit) => {
-          const isAlreadyInFavorites = favoriteList.some((favorite) => favorite.id === fruit.id);
-      
-          if (!isAlreadyInFavorites) {
-            dispatch(addFruitToFavorites(fruit));
-            setClickedItems((prevState) => ({
-              ...prevState,
-              [fruit.id]: true,
-            }));
-          } else {
-            dispatch({
-              type: REMOVE_FROM_FAVORITES,
-              payload: fruit,
-            });
-            setClickedItems((prevState) => ({
-              ...prevState,
-              [fruit.id]: false,
-            }));
-          }
-        };
-      
-        const handleImageChange = () => {
-          changeImage(item.id);
-          toggleFavorite(item);
-        };
-      
-        if (!item || !item.name) {
-          return (
-            <View style={homePageStyle.item}>
-              <Text>Error: Invalid fruit data</Text>
-            </View>
-          );
-        }
-      
-        return (
-          <List.Item
-            title={item.name}
-            onPress={() => goToDetail(item)}
-            right={() => (
-              <TouchableOpacity onPress={handleImageChange}>
-                <Image
-                  source={clickedItems[item.id] ? yellowStar : blackStar}
-                  style={homePageStyle.itemIcon}
-                />
-              </TouchableOpacity>
-            )}
-            style={homePageStyle.item}
-            titleStyle={homePageStyle.title}
-          />
-        );
-      };
-      
+            const isAlreadyInFavorites = favoriteList.some((favorite) => favorite.id === fruit.id);
 
+            if (!isAlreadyInFavorites) {
+                dispatch(addFruitToFavorites(fruit));
+                setClickedItems((prevState) => ({
+                    ...prevState,
+                    [fruit.id]: true,
+                }));
+            } else {
+                dispatch({
+                    type: REMOVE_FROM_FAVORITES,
+                    payload: fruit,
+                });
+                setClickedItems((prevState) => ({
+                    ...prevState,
+                    [fruit.id]: false,
+                }));
+            }
+        };
+
+        const handleImageChange = () => {
+            changeImage(item.id);
+            toggleFavorite(item);
+        };
+
+        if (!item || !item.name) {
+            return (
+                <View style={homePageStyle.item}>
+                    <Text>Error: Invalid fruit data</Text>
+                </View>
+            );
+        }
+
+        return (
+            <List.Item
+                title={item.name}
+                onPress={() => goToDetail(item)}
+                right={() => (
+                    <TouchableOpacity onPress={handleImageChange}>
+                        <Image
+                            source={clickedItems[item.id] ? yellowStar : blackStar}
+                            style={homePageStyle.itemIcon}
+                        />
+                    </TouchableOpacity>
+                )}
+                style={homePageStyle.item}
+                titleStyle={homePageStyle.title}
+            />
+        );
+    };
+
+    // Sort fruits by name
     const compareByName = (a, b) => {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
@@ -157,10 +159,11 @@ export default function HomePage() {
     };
 
     sortedFruits.sort(compareByName);
+
     return (
         <View style={homePageStyle.container}>
             <Appbar.Header style={homePageStyle.pageTitleContainer}>
-                <Appbar.Content title="Home" titleStyle={homePageStyle.pageTitle}/>
+                <Appbar.Content title="Home" titleStyle={homePageStyle.pageTitle} />
             </Appbar.Header>
             <View style={homePageStyle.searchInputContainer}>
                 <TextInput
@@ -174,8 +177,12 @@ export default function HomePage() {
             </View>
 
             {loading ? (
-                <Text>Loading...</Text>
+                // Show ActivityIndicator while loading
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator animating={true} size="large" />
+                </View>
             ) : (
+                // Render FlatList with sortedFruits
                 <FlatList
                     data={sortedFruits}
                     renderItem={renderFruitItem}

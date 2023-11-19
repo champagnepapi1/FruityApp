@@ -11,7 +11,7 @@ export const homePageStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     justifyContent: 'center',
-    backgroundColor: "#FF953D",
+    backgroundColor: "#FF7400",
 
   },
   pageTitle : {

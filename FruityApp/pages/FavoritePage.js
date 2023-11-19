@@ -61,6 +61,7 @@ export default function FavoritePage() {
 
     // Render each fruit item in the list
     const renderFruitItem = ({ item }) => {
+        // Render an error view if the fruit data is invalid
         if (!item || !item.name) {
             return (
                 <View style={homePageStyle.item}>
@@ -95,20 +96,26 @@ export default function FavoritePage() {
             <Appbar.Header style={homePageStyle.pageTitleContainer}>
                 <Appbar.Content title="Favorite" titleStyle={homePageStyle.pageTitle}/>
             </Appbar.Header>
-            {/* List of favorite fruits */}
-            <FlatList
-                data={sortedFavoriteList}
-                renderItem={renderFruitItem}
-                keyExtractor={(item) => {
-                    if (item && typeof item.id === 'number' && !isNaN(item.id)) {
-                        return item.id.toString();
-                    } else {
-                        console.error('Invalid ID or item:', item);
-                        // Return a default value or an alternative ID
-                        return 'defaultId';
-                    }
-                }}
-            />
+            {/* Conditionally render 'Empty' if the favorite list is empty */}
+            {sortedFavoriteList.length === 0 ? (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{color: "white", fontSize: 15}}>Click on the star to add a fruit to your favorites</Text>
+                </View>
+            ) : (
+                // Render the list of favorite fruits
+                <FlatList
+                    data={sortedFavoriteList}
+                    renderItem={renderFruitItem}
+                    keyExtractor={(item) => {
+                        if (item && typeof item.id === 'number' && !isNaN(item.id)) {
+                            return item.id.toString();
+                        } else {
+                            console.error('Invalid ID or item:', item);
+                            return 'defaultId';
+                        }
+                    }}
+                />
+            )}
         </View>
     );
 }
