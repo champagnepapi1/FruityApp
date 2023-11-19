@@ -19,7 +19,7 @@ npm start or npx expo client
 ```
 Install **Expo go** on your phone and scan the QR code
 
-**ENJOY !**
+**enjoy !**
 
 ### In case of issues
 
