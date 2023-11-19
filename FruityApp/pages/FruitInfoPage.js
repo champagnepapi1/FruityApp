@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fruitInfoPageStyle } from "../styles/FruitInfoPageStyle";
 import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from '../utils/store';
 import { getFavoriteList } from '../utils/store';
-import arrowLeft from '../assets/arrow_left.png';
 import { useNavigation } from '@react-navigation/native';
+import { Appbar } from 'react-native-paper';
 
 
 export default function FruitInfoPage() {
@@ -45,18 +45,10 @@ export default function FruitInfoPage() {
 
     return (
         <View style={fruitInfoPageStyle.container}>
-            <View style={fruitInfoPageStyle.header}>
-                <View style={fruitInfoPageStyle.contentContainer}>
-                    <TouchableOpacity style={fruitInfoPageStyle.imageContainer} onPress={goBack}>
-                        <Image source={arrowLeft} style={fruitInfoPageStyle.imageStyle} />
-                    </TouchableOpacity>
-                    <View style={fruitInfoPageStyle.pageTitleContainer}>
-                        <Text style={fruitInfoPageStyle.pageTitle}>Informations</Text>
-
-                    </View>
-                </View>
-
-            </View>
+                <Appbar.Header style={fruitInfoPageStyle.header}>
+                    <Appbar.BackAction onPress={goBack} color='white' size={35}/>
+                    <Appbar.Content title="Informations" titleStyle={fruitInfoPageStyle.pageTitle}/>
+                </Appbar.Header>
             <View style={fruitInfoPageStyle.containerBox}>
                 <View style={fruitInfoPageStyle.favoriteButton}>
                     <TouchableOpacity onPress={addOrRemoveFavorite}>
@@ -85,11 +77,11 @@ export default function FruitInfoPage() {
                     <Text style={fruitInfoPageStyle.textStyle}>{fruitInfo.order}</Text>
                 </View>
                 <View style={fruitInfoPageStyle.lineContainer}>
-                <View style={fruitInfoPageStyle.line}/>
+                    <View style={fruitInfoPageStyle.line} />
                 </View>
                 <View style={fruitInfoPageStyle.nutritionsContainerBox}>
                     <View style={fruitInfoPageStyle.nutritionsTitleContainer}>
-                        <Text style={fruitInfoPageStyle.nutritionsTitle}>Nutritions</Text>
+                        <Text style={fruitInfoPageStyle.nutritionsTitle}>Nutritions <Text style={fruitInfoPageStyle.titleLabel}>per 100g</Text></Text>
                     </View>
                     <View>
                         <View style={fruitInfoPageStyle.nutritionsContainer}>

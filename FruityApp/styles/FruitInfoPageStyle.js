@@ -3,10 +3,14 @@ import { StyleSheet, StatusBar } from "react-native";
 export const fruitInfoPageStyle = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: "#FF3D3D"
+
   },
   header: {
-    padding: 20,
+    backgroundColor: "#FF7400",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: "center"
   },
   contentContainer: {
     flexDirection: 'row',
@@ -25,15 +29,17 @@ export const fruitInfoPageStyle = StyleSheet.create({
     alignItems: 'center',
   },
   pageTitle: {
-    fontSize: 32,
+    fontSize: 28,
+    paddingVertical: 16,
+    color: "white"
   },
   containerBox: {
     marginLeft: 10,
     marginRight: 10,
     marginTop: 30,
     borderWidth: 2,
-    borderColor: "black",
-    backgroundColor: "#E0004D",
+    borderColor: "white",
+    backgroundColor: "#FF7400",
     borderRadius: 20,
     elevation: 10
   },
@@ -98,6 +104,10 @@ export const fruitInfoPageStyle = StyleSheet.create({
     fontSize: 25,
     color: "white"
 
+  },
+  titleLabel: {
+    fontSize: 10,
+    color: "white"
   },
   nutritionsContainer: {
     flexDirection: 'row',

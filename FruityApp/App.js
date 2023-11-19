@@ -58,15 +58,15 @@ export default function App() {
           {/* Home button */}
           <View>
             <TouchableOpacity onPress={goToHome} style={tabBarStyle.homeButtonContainer}>
-              <Image source={require("./assets/homepage.png")} style={{ width: 24, height: 24, tintColor: activePage === 'HomePage' ? '#F4CD1E' : 'white' }} />
-              <Text style={{ ...tabBarStyle.labelHome, color: activePage === 'HomePage' ? '#F4CD1E' : 'white' }}>Home</Text>
+              <Image source={require("./assets/homepage.png")} style={{ width: 24, height: 24, tintColor: activePage === 'HomePage' ? '#FF3D3D' : 'white' }} />
+              <Text style={{ ...tabBarStyle.labelHome, color: activePage === 'HomePage' ? '#FF3D3D' : 'white' }}>Home</Text>
             </TouchableOpacity>
           </View>
           {/* Favorite button */}
           <View>
             <TouchableOpacity onPress={goFavorite} style={tabBarStyle.favoriteButtonContainer}>
-              <Image source={require("./assets/star.png")} style={{ width: 24, height: 24, tintColor: activePage === 'FavoritePage' ? '#F4CD1E' : 'white' }} />
-              <Text style={{ ...tabBarStyle.labelFavorite, color: activePage === 'FavoritePage' ? '#F4CD1E' : 'white' }}>Favorite</Text>
+              <Image source={require("./assets/star.png")} style={{ width: 24, height: 24, tintColor: activePage === 'FavoritePage' ? '#FF3D3D' : 'white' }} />
+              <Text style={{ ...tabBarStyle.labelFavorite, color: activePage === 'FavoritePage' ? '#FF3D3D' : 'white' }}>Favorite</Text>
             </TouchableOpacity>
           </View>
         </View>

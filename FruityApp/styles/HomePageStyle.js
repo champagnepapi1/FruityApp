@@ -3,26 +3,32 @@ import { StyleSheet, StatusBar } from "react-native";
 export const homePageStyle = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    width: "100%"
+    width: "100%",
+    backgroundColor: "#FF3D3D"
   },
   pageTitleContainer: {
-    marginTop: StatusBar.currentHeight || 0,
-    marginBottom: StatusBar.currentHeight || 0,
-    marginLeft: 32,
-    alignItems: "center"
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    justifyContent: 'center',
+    backgroundColor: "#FF953D",
+
   },
   pageTitle : {
-    fontSize: 32
+    fontSize: 28,
+    color: "white",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 16
   },
   item: {
     padding: 20,
-    marginVertical: 8,
+    marginVertical: 18,
     marginHorizontal: 16,
     alignItems: "left",
-    backgroundColor: "#E0004D",
+    backgroundColor: "#FF7400",
     borderRadius: 20,
-    elevation: 10
+    elevation: 10,
   },
   itemView: {
     flexDirection: 'row', 
@@ -39,18 +45,14 @@ export const homePageStyle = StyleSheet.create({
     color: 'white',
   },
   searchInputContainer: {
+    marginTop: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: StatusBar.currentHeight || 0,
+    marginBottom: 18,
   },
   searchInput: {
     width: "90%",
-    height: 50,
-    borderWidth: 2,
-    borderRadius: 50,
-    paddingHorizontal: 10,
-    backgroundColor: "white",
-    color: "black",
-    paddingLeft: 15
+    backgroundColor: "#FFD9BA",
+    color: "#2C1605",
   }
 });

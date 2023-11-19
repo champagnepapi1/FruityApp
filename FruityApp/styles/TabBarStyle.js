@@ -1,4 +1,3 @@
-import { Center } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 
 export const tabBarStyle = StyleSheet.create({
@@ -9,7 +8,7 @@ export const tabBarStyle = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: "#E0004D",
+        backgroundColor: "#FF7400",
       },
       homeButtonContainer: {
         flexDirection: 'column',

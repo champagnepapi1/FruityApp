@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { homePageStyle } from "../styles/HomePageStyle";
 import blackStar from "../assets/blackStar.png";
 import yellowStar from "../assets/star.png";
-import { tabBarStyle } from "../styles/TabBarStyle";
+import { Appbar } from "react-native-paper";
 
 export default function FavoritePage() {
     const dispatch = useDispatch();
@@ -92,9 +92,9 @@ export default function FavoritePage() {
     return (
         <View style={homePageStyle.container}>
             {/* Page title */}
-            <View style={homePageStyle.pageTitleContainer}>
-                <Text style={homePageStyle.pageTitle}>Favorite</Text>
-            </View>
+            <Appbar.Header style={homePageStyle.pageTitleContainer}>
+                <Appbar.Content title="Favorite" titleStyle={homePageStyle.pageTitle}/>
+            </Appbar.Header>
             {/* List of favorite fruits */}
             <FlatList
                 data={sortedFavoriteList}

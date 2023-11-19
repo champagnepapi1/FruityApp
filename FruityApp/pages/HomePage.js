@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import { Appbar, List, TextInput } from 'react-native-paper';
 import { FETCH_FRUITS, FETCH_FRUITS_SUCCESS, REMOVE_FROM_FAVORITES, ADD_TO_FAVORITES, getFavoriteList, getFruitsList, getLoadingState } from '../utils/store';
 import { homePageStyle } from '../styles/HomePageStyle';
 import blackStar from "../assets/blackStar.png";
 import yellowStar from "../assets/star.png";
-import { tabBarStyle } from '../styles/TabBarStyle';
 
 const fetchFruits = () => ({
     type: FETCH_FRUITS,
@@ -78,14 +78,6 @@ export default function HomePage() {
         setClickedItems(initialClickedItems);
     }, [fruitsList, favoriteList]);
 
-    const goToHome = () => {
-        navigation.navigate('HomePage');
-    };
-
-    const goFavorite = () => {
-        navigation.navigate('FavoritePage');
-    };
-
     const goToDetail = (fruit) => {
         // Redirection vers la page de détail du fruit
         navigation.navigate("FruitInfoPage", fruit);
@@ -103,60 +95,58 @@ export default function HomePage() {
     };
 
     const renderFruitItem = ({ item }) => {
-        if (!item || !item.name) {
-            return (
-                <View style={homePageStyle.item}>
-                    <Text>Error: Invalid fruit data</Text>
-                </View>
-            );
-        }
-
-        const handleImageChange = () => {
-            changeImage(item.id);
-            toggleFavorite(item); // Function to add/remove item from favorites
-        };
-
         const toggleFavorite = (fruit) => {
-            const isAlreadyInFavorites = favoriteList.some(favorite => favorite.id === fruit.id);
-
-            if (!isAlreadyInFavorites) {
-                // Add the fruit to favorites if not already present
-                dispatch(addFruitToFavorites(fruit));
-                setClickedItems(prevState => ({
-                    ...prevState,
-                    [fruit.id]: true, // Set the clicked state to true
-                }));
-            } else {
-                // Remove the fruit from favorites if already present
-                dispatch({
-                    type: REMOVE_FROM_FAVORITES,
-                    payload: fruit,
-                });
-                setClickedItems(prevState => ({
-                    ...prevState,
-                    [fruit.id]: false, // Set the clicked state to false
-                }));
-            }
+          const isAlreadyInFavorites = favoriteList.some((favorite) => favorite.id === fruit.id);
+      
+          if (!isAlreadyInFavorites) {
+            dispatch(addFruitToFavorites(fruit));
+            setClickedItems((prevState) => ({
+              ...prevState,
+              [fruit.id]: true,
+            }));
+          } else {
+            dispatch({
+              type: REMOVE_FROM_FAVORITES,
+              payload: fruit,
+            });
+            setClickedItems((prevState) => ({
+              ...prevState,
+              [fruit.id]: false,
+            }));
+          }
         };
-
-        const activeImage = clickedItems[item.id] ? yellowStar : blackStar;
-
-        return (
+      
+        const handleImageChange = () => {
+          changeImage(item.id);
+          toggleFavorite(item);
+        };
+      
+        if (!item || !item.name) {
+          return (
             <View style={homePageStyle.item}>
-                <TouchableOpacity onPress={() => goToDetail(item)}>
-                    <View style={homePageStyle.itemView}>
-                        <Text style={homePageStyle.title}>{item.name}</Text>
-                        <TouchableOpacity onPress={handleImageChange}>
-                            <Image
-                                source={activeImage}
-                                style={homePageStyle.itemIcon}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
+              <Text>Error: Invalid fruit data</Text>
             </View>
+          );
+        }
+      
+        return (
+          <List.Item
+            title={item.name}
+            onPress={() => goToDetail(item)}
+            right={() => (
+              <TouchableOpacity onPress={handleImageChange}>
+                <Image
+                  source={clickedItems[item.id] ? yellowStar : blackStar}
+                  style={homePageStyle.itemIcon}
+                />
+              </TouchableOpacity>
+            )}
+            style={homePageStyle.item}
+            titleStyle={homePageStyle.title}
+          />
         );
-    };
+      };
+      
 
     const compareByName = (a, b) => {
         const nameA = a.name.toLowerCase();
@@ -169,9 +159,9 @@ export default function HomePage() {
     sortedFruits.sort(compareByName);
     return (
         <View style={homePageStyle.container}>
-            <View style={homePageStyle.pageTitleContainer}>
-                <Text style={homePageStyle.pageTitle}>Home</Text>
-            </View>
+            <Appbar.Header style={homePageStyle.pageTitleContainer}>
+                <Appbar.Content title="Home" titleStyle={homePageStyle.pageTitle}/>
+            </Appbar.Header>
             <View style={homePageStyle.searchInputContainer}>
                 <TextInput
                     underlineColor='transparent'
@@ -179,8 +169,7 @@ export default function HomePage() {
                     onChangeText={handleSearch}
                     value={searchQuery}
                     placeholder="Search by name..."
-                    placeholderTextColor="black"
-                    
+                    placeholderTextColor="#2C1605"
                 />
             </View>
 
@@ -200,22 +189,6 @@ export default function HomePage() {
                     }}
                 />
             )}
-            {/* <View style={tabBarStyle.tabContainer}>
-                <View style={tabBarStyle.tab}>
-                    <View>
-                        <TouchableOpacity onPress={goToHome} style={tabBarStyle.homeButtonContainer}>
-                            <Image source={require("../assets/homepage.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
-                            <Text style={tabBarStyle.labelHome}>Home</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity onPress={goFavorite} style={tabBarStyle.favoriteButtonContainer}>
-                            <Image source={require("../assets/star.png")} style={{ width: 24, height: 24, tintColor: "white" }} />
-                            <Text style={tabBarStyle.labelFavorite}>Favorite</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View> */}
         </View>
     );
 }
